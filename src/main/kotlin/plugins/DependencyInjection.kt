@@ -1,7 +1,7 @@
 package com.vincebiins.plugins
 import com.vincebiins.repository.NoteRepository
 import com.vincebiins.repository.NoteRepositoryImpl
-import com.vincebiins.routes.NoteController
+import com.vincebiins.controller.NoteController
 import io.ktor.server.application.*
 import org.koin.dsl.module
 import org.koin.ktor.plugin.Koin
