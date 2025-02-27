@@ -1,4 +1,4 @@
-package com.vincebiins.core.network
+package com.vincebiins.infrastructure.network
 
 import kotlinx.serialization.Serializable
 

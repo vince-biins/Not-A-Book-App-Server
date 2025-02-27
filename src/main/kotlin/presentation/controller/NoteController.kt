@@ -1,26 +1,26 @@
-package com.vincebiins.controller
+package com.vincebiins.presentation.controller
 
-import com.vincebiins.core.network.ResponseCode
-import com.vincebiins.core.network.Result
-import com.vincebiins.model.CreateNote
-import com.vincebiins.repository.NoteRepository
+import com.vincebiins.infrastructure.network.ResponseCode
+import com.vincebiins.infrastructure.network.Result
+import com.vincebiins.presentation.dto.NoteDto
+import com.vincebiins.application.service.NoteService
 import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 
 
-class NoteController(private val repository: NoteRepository) {
+class NoteController(private val service: NoteService) {
 
     fun Route.noteRoutes() {
 
         get("/notes") {
-            val notes = repository.getAllNotes()
+            val notes = service.getAllNotes()
             call.respond(
                 HttpStatusCode.OK,
                 Result.Success(
                     code = ResponseCode.SUCCESS,
-                    message = "Successfully fetched",
+                    message = "${ResponseCode.SUCCESS.message} - Successfully fetched",
                     data = notes
                 )
             )
@@ -40,7 +40,7 @@ class NoteController(private val repository: NoteRepository) {
                 return@get
             }
 
-            val note = repository.getNoteById(id)
+            val note = service.getNoteById(id)
             if (note == null) {
                 call.respond(
                     HttpStatusCode.NotFound,
@@ -63,9 +63,9 @@ class NoteController(private val repository: NoteRepository) {
         }
 
         post("/note/add") {
-            val note = call.receive<CreateNote>()
+            val note = call.receive<NoteDto>()
 
-            if (repository.addNewNote(note)) {
+            if (service.createNote(note)) {
                 call.respond(
                     HttpStatusCode.Created,
                     Result.Success(
@@ -99,7 +99,7 @@ class NoteController(private val repository: NoteRepository) {
                 return@delete
             }
 
-            if (repository.deleteNote(id)) {
+            if (service.deleteNoteById(id)) {
                 call.respond(
                     HttpStatusCode.OK,
                     Result.Success(

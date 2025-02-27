@@ -1,4 +1,4 @@
-package com.vincebiins.model
+package com.vincebiins.domain.model
 
 import kotlinx.serialization.Serializable
 
@@ -11,9 +11,3 @@ data class Note(
     val isPinned: Boolean,
 )
 
-@Serializable
-data class CreateNote(
-    val title: String,
-    val body: String,
-    val isPinned: Boolean,
-)

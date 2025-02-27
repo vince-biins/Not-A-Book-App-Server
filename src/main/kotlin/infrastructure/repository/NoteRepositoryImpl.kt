@@ -1,7 +1,7 @@
-package com.vincebiins.repository
+package com.vincebiins.infrastructure.repository
 
-import com.vincebiins.model.CreateNote
-import com.vincebiins.model.Note
+import com.vincebiins.domain.model.Note
+import com.vincebiins.domain.repository.NoteRepository
 import java.time.LocalDateTime
 
 class NoteRepositoryImpl : NoteRepository {
@@ -37,15 +37,9 @@ class NoteRepositoryImpl : NoteRepository {
         return noteLists.firstOrNull { it.id == id }
     }
 
-    override fun addNewNote(note: CreateNote): Boolean {
+    override fun addNewNote(note: Note): Boolean {
         return noteLists.add(
-            Note(
-                id = noteLists.size + 1,
-                title = note.title,
-                body = note.body,
-                timeStamp = LocalDateTime.now().toString(),
-                isPinned = note.isPinned,
-            )
+            note.copy(id = noteLists.size + 1)
         )
     }
 

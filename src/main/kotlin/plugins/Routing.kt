@@ -1,6 +1,6 @@
 package com.vincebiins.plugins
 
-import com.vincebiins.controller.NoteController
+import com.vincebiins.presentation.controller.NoteController
 import io.ktor.server.application.*
 import io.ktor.server.http.content.*
 import io.ktor.server.routing.*
